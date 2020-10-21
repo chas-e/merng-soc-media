@@ -6,8 +6,25 @@ type Post{
     body: String!
     createdAt: String!
     username: String!
-} 
-    type Query{
+}
+type User {
+    id: ID!
+    email: String!
+    token: String!
+    username: String!
+    createdAt: String!
+}
+input RegisterInput {
+    username: String!
+    password: String!
+    confirmPassword: String!
+    email: String!
+}
+    type Query {
         getPosts: [Post]
+    }
+    type Mutation {
+        register(registerInput: RegisterInput): User!
+        login(username: String!, password: String!): User!
     }
 `
