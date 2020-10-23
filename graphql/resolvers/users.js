@@ -46,7 +46,6 @@ module.exports = {
                     id: user._id,
                     token
                 };
-            }
         },
         async register(_, { 
             registerInput: { username, email, password, confirmPassword }
@@ -85,4 +84,5 @@ module.exports = {
                 token
             };
         }
+    }
 };
