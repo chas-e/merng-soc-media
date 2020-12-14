@@ -44,6 +44,9 @@ input RegisterInput {
         deletePost(postId: ID!): String!
         createComment(postId: ID!, body: String!): Post!
         deleteComment(postId: ID!, commentId: ID!): Post!
-        likePost(opstId: ID!): Post!
+        likePost(postId: ID!): Post!
+    }
+    type Subscription {
+        newPost: Post!
     }
 `
