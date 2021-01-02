@@ -1,17 +1,38 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import gql from 'graphql-tag';
+import { Grid, Transition } from 'semantic-ui-react';
 
-export default function Home(props) {
-    const { loading, data } = useQuery(FETCH_POSTS_QUERY);
+import PostCard from '../components/PostCard';
 
-    if (data) {
-        console.log(data);
-    }
+
+export default function Home() {
+    const {
+        loading,
+        data: { getPosts: posts }
+    } = useQuery(FETCH_POSTS_QUERY);
+
     return (
-        <div>
-            <h1>Home Page</h1>
-        </div>
+        <Grid columns={3} divided>
+            <Grid.Row className="pageTitle">
+                <h1>Recent Posts</h1>
+            </Grid.Row>
+            <Grid.Row>
+                {loading ? (
+                    <h1>Loading posts...</h1>
+                ) : (
+                        <Transition.Group>
+                            {posts &&
+                                posts.map((post) => (
+                                    <Grid.Column
+                                        key={post.id} style={{ marginBottom: 20 }}>
+                                        <PostCard post={post} />
+                                    </Grid.Column>
+                                ))}
+                        </Transition.Group>
+                    )}
+            </Grid.Row>
+        </Grid>
     );
 }
 
